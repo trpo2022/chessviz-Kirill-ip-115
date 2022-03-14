@@ -1,5 +1,5 @@
 main: ./built/main.o ./built/board_read.o ./built/game.o ./built/board_print_plain.o
-	gcc -Werror -Wall -o ./bin/main ./built/main.o ./built/board_read.o ./built/game.o ./built/board_print_plain.o
+	gcc -Werror -Wall -o ./Bin/main ./built/main.o ./built/board_read.o ./built/game.o ./built/board_print_plain.o
 
 ./built/main.o: ./src/main.c
 	gcc -Werror -Wall -o ./built/main.o -c ./src/main.c 
@@ -14,9 +14,9 @@ main: ./built/main.o ./built/board_read.o ./built/game.o ./built/board_print_pla
 	gcc -Werror -Wall -o ./built/board_print_plain.o -c ./src/board_print_plain.c
 
 run:
-	./bin/main
+	./Bin/main
 
 clean:
 	rm ./built/*
-	rm ./bin/*
+	rm ./Bin/*
 
