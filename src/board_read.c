@@ -3,11 +3,11 @@
 extern char board[11][11];
 
 void input(Move* move, uint8_t type_err)
-{ 
+{
     print_board(move->flag);
 
     char inp[6];
-    
+
     fgets(inp, 6, stdin);
 
     if (inp[0] >= 'a' && inp[0] <= 'h') {
@@ -59,18 +59,17 @@ void check_type_move(Move* move)
     if (move->type_move == 'x' || move->type_move == 'X') {
         if (board[move->y2][move->x2] == ' ') {
             input(move, 2);
-            return;  
+            return;
         }
     }
-    
+
     if (move->type_move == '-') {
         if (board[move->y2][move->x2] != ' ') {
             input(move, 2);
-            return;  
+            return;
         }
-    }   
-}   
-
+    }
+}
 
 void checkY(Move* move)
 {
@@ -79,7 +78,7 @@ void checkY(Move* move)
         input(move, 1);
         return;
     }
-    
+
     if (move->y1 > move->y2) {
         c1 = move->y2;
         c2 = move->y1;
@@ -91,7 +90,6 @@ void checkY(Move* move)
             return;
         }
     }
-   
 }
 
 void checkX(Move* move)
@@ -101,7 +99,7 @@ void checkX(Move* move)
         input(move, 1);
         return;
     }
-    
+
     if (move->x1 > move->x2) {
         c1 = move->x2;
         c2 = move->x1;
@@ -118,11 +116,12 @@ void checkX(Move* move)
 void checkD(Move* move)
 {
     int i, j, c1 = move->y2, c2 = move->y1, ci, cj;
-    
-    if (((move->y2 - move->y1) != (move->x2 - move->x1)) && ((move->y2 - move->y1) != (move->x1 - move->x2))) {
+
+    if (((move->y2 - move->y1) != (move->x2 - move->x1))
+        && ((move->y2 - move->y1) != (move->x1 - move->x2))) {
         input(move, 1);
     }
-    
+
     if (move->y2 > move->y1) {
         c1 = move->y1;
         c2 = move->y2;
@@ -130,7 +129,7 @@ void checkD(Move* move)
     } else {
         ci = -1;
     }
-    
+
     if (move->x2 > move->x1) {
         cj = 1;
     } else {
@@ -139,7 +138,7 @@ void checkD(Move* move)
 
     i = move->y1 + ci;
     j = move->x1 + cj;
-    
+
     while ((i < c2) && (i > c1)) {
         if (board[i][j] != ' ') {
             input(move, 1);
@@ -149,5 +148,4 @@ void checkD(Move* move)
         j += cj;
     }
 }
-
 
