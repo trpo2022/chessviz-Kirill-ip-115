@@ -1,22 +1,33 @@
-main: ./built/main.o ./built/board_read.o ./built/game.o ./built/board_print_plain.o
-	gcc -Werror -Wall -o ./Bin/main ./built/main.o ./built/board_read.o ./built/game.o ./built/board_print_plain.o
+programa: bin/programa
 
-./built/main.o: ./src/main.c
-	gcc -Werror -Wall -o ./built/main.o -c ./src/main.c 
+test: bin/programa-test
 
-./built/board_read.o: ./src/board_read.c
-	gcc -Werror -Wall -o ./built/board_read.o -c ./src/board_read.c 
+build/programa-test.o: test/main.c build
+	gcc -std=c99 -I thirdparty -I src -c test/main.c -o build/programa-test.o
 
-./built/game.o: ./src/game.c
-	gcc -Werror -Wall -o ./built/game.o -c ./src/game.c
+build/main.o: src/main.c build
+	gcc -std=c99 -Wall -Werror -c src/main.c -o build/main.o
 
-./built/board_print_plain.o: ./src/board_print_plain.c
-	gcc -Werror -Wall -o ./built/board_print_plain.o -c ./src/board_print_plain.c
+build/board.o: src/board.c
+	gcc -std=c99 -Wall -Werror -c src/board.c -o build/board.o
 
-run:
-	./Bin/main
+build/board_print_plain.o: src/board_print_plain.c
+	gcc -std=c99 -Wall -Werror -c src/board_print_plain.c -o build/board_print_plain.o
+
+bin/programa: build/main.o build/board.o build/board_print_plain.o bin
+	gcc -Wall -Werror build/main.o build/board.o build/board_print_plain.o -lm -o bin/programa
+
+bin/programa-test: build/programa-test.o build/board.o build/board_print_plain.o bin
+	gcc -Wall -Werror build/programa-test.o build/board.o build/board_print_plain.o -lm -o bin/programa-test
+
+.PHONY : clean
+
+bin:
+	mkdir bin
+
+build:
+	mkdir build
 
 clean:
-	rm ./built/*
-	rm ./Bin/*
-
+	rm -rf build
+	rm -rf bin
