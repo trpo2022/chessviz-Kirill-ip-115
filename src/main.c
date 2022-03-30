@@ -148,7 +148,7 @@ int main()
             }
 
             /*if (flag != 4) {
-           	     printf("Wrong input\n");
+                     printf("Wrong input\n");
                 return 0;
             }*/
         }
